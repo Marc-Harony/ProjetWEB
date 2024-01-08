@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tableau de bord</title>
+</head>
+<body>
+    <h2>Tableau de bord</h2>
+    {% if session['user_nom'] %}
+        <p>Bonjour {{ session['user_nom'] }}, bienvenue sur votre espace personnel.</p>
+    {% endif %}
+    <br>
+
+    <a href="/mes_caves"><button type="button">Gérer mes caves</button></a>
+
+    
+    <h1>
+    <a href="/"><button type="button">Retour à l'Accueil</button></a>
+    </h1><br>
+    <a href="/logout">Déconnexion</a>
+
+</body>
+</html>

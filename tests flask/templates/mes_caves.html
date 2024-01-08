@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mes Caves</title>
+</head>
+<body>
+    <h1>Mes Caves</h1>
+    <a href="/ajouter_cave">Ajouter une nouvelle cave</a>
+    <ul>
+        {% for cave in caves %}
+            <li>{{ cave[1] }} - Localisation: {{ cave[2] }} - Capacité: {{ cave[3] }}
+                <form action="/gerer_cave/{{ cave[0] }}" method="post">
+                    <input type="submit" value="Gérer">
+                </form><br>
+                <form action="/supprimer_cave/{{ cave[0] }}" method="post">
+                    <input type="submit" value="Supprimer">
+                </form><br>
+
+            </li>
+        {% else %}
+            <li>Aucune cave n'est enregistrée.</li>
+        {% endfor %}
+    </ul>
+
+
+    <h1>
+        <a href="/"><button type="button">Retour à l'Accueil</button></a>
+        </h1><br>
+</body>
+</html>

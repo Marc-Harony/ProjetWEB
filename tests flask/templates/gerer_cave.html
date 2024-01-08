@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gérer Cave</title>
+</head>
+<body>
+    <h1>Gérer la Cave {{ cave_nom }}</h1>
+    {% for etagere_id, etagere_nom in etageres %}
+    <h2>
+        <form action="{{ url_for('vider_etagere', etagere_id=etagere_id) }}" method="post">{{ etagere_nom }}
+            <input type="submit" value="VIDER">
+        </form>
+
+    </h2>
+    <ul>
+        {% for bouteille in bouteilles_par_etagere.get(etagere_id, []) %}
+            <li>
+                <!-- Ajoutez ceci pour chaque bouteille listée -->
+                <form action="{{ url_for('supprimer_bouteille', bouteille_id=bouteille.id) }}" method="post">{{ bouteille.domaine }} {{ bouteille.nom }} {{ bouteille.annee }}
+                    <input type="submit" value="SUPPRIMER">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+
+    <!-- Formulaire pour ajouter des bouteilles à une étagère -->
+    <h2>Ajouter des bouteilles à une étagère</h2>
+    <form action="/ajouter_bouteille_etagere/{{ cave_id }}" method="post">
+        <label for="bouteille">Choisir une bouteille :</label>
+        <select id="bouteille" name="bouteille_id">
+            {% for bouteille in bouteilles_disponibles %}
+                <option value="{{ bouteille[0] }}">{{ bouteille[1] }} - {{ bouteille[2] }} - {{ bouteille[3] }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="etagere">Choisir une étagère :</label>
+        <select id="etagere" name="etagere_id">
+            {% for etagere_id, etagere_nom in etageres %}
+                <option value="{{ etagere_id }}">{{ etagere_nom }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="quantite">Quantité :</label>
+        <input type="number" id="quantite" name="quantite" min="1" required><br><br>
+        <input type="submit" value="Ajouter à l'étagère">
+        <h3>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div>{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </h3>
+
+        <h1>
+            <a href="/"><button type="button">Retour à l'Accueil</button></a>
+            </h1><br>
+    </form>
+</body>
+</html>

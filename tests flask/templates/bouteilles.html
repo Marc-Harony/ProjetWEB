@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des bouteilles</title>
+</head>
+<body>
+    <h1>Liste des bouteilles</h1>
+    <ul>
+    {% for bottle in bottles %}
+        <li>ID: {{ bottle.0 }}, Domaine: {{ bottle.1 }}, Nom: {{ bottle.2 }}, Type de vin: {{ bottle.3 }}, Année: {{ bottle.4 }}, Région : {{ bottle.5 }}, Prix : {{ bottle.6 }}€, Note :  {{ bottle.8}}/5 - Quantité : {{ bottle.9 }}</li> <br>
+    {% endfor %}
+    </ul>
+    <h1>Ajouter des bouteilles</h1>
+    <form action="/add_bottle" method="POST">
+        <input name="domaine" placeholder="Domaine">
+        <input name="nom" placeholder="Nom">
+        <input name="type" placeholder="Type">
+        <input name="annee" placeholder="Année">
+        <input name="region" placeholder="Région">
+        <input name="quantite" placeholder="Quantité">
+        <input type="submit" value="Ajouter">
+    </form><br>
+    <a href="/"><button type="button">Retour à l'Accueil</button></a>
+</body>
+</html>
